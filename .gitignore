@@ -2,5 +2,9 @@
 .idea/
 cmake-build-*/
 
+### SublimeText ###
+*.sublime-project
+*.sublime-workspace
+
 ### Project ###
 build/**
