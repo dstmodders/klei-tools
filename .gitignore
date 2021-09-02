@@ -1,2 +1,6 @@
-# Ignores everything in build/
+### CLion ###
+.idea/
+cmake-build-*/
+
+### Project ###
 build/**
