@@ -1,0 +1,21 @@
+[MESSAGES CONTROL]
+disable=bare-except,
+        consider-using-enumerate,
+        fixme,
+        global-statement,
+        import-error,
+        invalid-name,
+        len-as-condition,
+        missing-docstring,
+        no-member,
+        too-few-public-methods,
+        too-many-arguments,
+        too-many-branches,
+        too-many-instance-attributes,
+        too-many-locals,
+        too-many-statements,
+        unidiomatic-typecheck,
+        useless-super-delegation
+
+[FORMAT]
+max-line-length=80
