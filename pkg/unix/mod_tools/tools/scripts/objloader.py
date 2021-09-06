@@ -1,18 +1,23 @@
 # taken from the pygame wiki http://pygame.org/wiki/OBJFileLoader
 
-class ObjFile:
-    def __init__(self, file):
-        """Loads a Wavefront OBJ file. """
+class ObjFile(object):
+    def __init__(self, _file):
+        """Loads a Wavefront OBJ file."""
         self.vertices = []
         self.normals = []
         self.texcoords = []
         self.faces = []
- 
+
+        # pylint: disable=unused-variable
         material = None
-        for line in file:
-            if line.startswith('#'): continue
+        for line in _file:
+            if line.startswith('#'):
+                continue
+
             values = line.split()
-            if not values: continue
+            if not values:
+                continue
+
             if values[0] == 'v':
                 v = map(float, values[1:4])
                 self.vertices.append(v)
@@ -25,20 +30,20 @@ class ObjFile:
                 material = values[1]
             elif values[0] == 'mtllib':
                 pass
-                #self.mtl = MTL(values[1])
+                # self.mtl = MTL(values[1])
             elif values[0] == 'f':
-                verts= []
+                verts = []
                 for v in values[1:]:
                     vert = []
                     w = v.split('/')
-                    
+
                     vert.append(int(w[0]))
-                    
+
                     if len(w) >= 2 and len(w[1]) > 0:
                         vert.append(int(w[1]))
                     else:
                         vert.append(0)
-                        
+
                     if len(w) >= 3 and len(w[2]) > 0:
                         vert.append(int(w[2]))
                     else:

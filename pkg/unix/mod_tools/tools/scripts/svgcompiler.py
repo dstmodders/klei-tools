@@ -1,152 +1,169 @@
-import sys, os, re, tempfile
+import os
+import re
+import sys
+import tempfile
 import xml
 from xml.etree.ElementTree import ElementTree
-from Vector import *
+
 import ModelCompiler
 import Units
+from Vector import Vector3
 
 Polygons = []
 
 NameSpaces = {}
 
 LayerTextureMap = {
-		'water' : [ 'Ground_water.png' ],
-		}
-
-def parse_nsmap(file):
-	events = "start", "start-ns", "end-ns"
-
-	root = None
-	ns_map = []
-
-	for event, elem in xml.etree.ElementTree.iterparse(file, events):
-		if event == "start-ns":
-			ns_map.append(elem)
-			NameSpaces[ elem[0] ] = elem[1]
-		elif event == "end-ns":
-			ns_map.pop()
-		elif event == "start":
-			if root is None:
-				root = elem
-
-	return ElementTree(root)
+    'water': ['Ground_water.png'],
+}
 
 
-def RemoveNameSpace( string ):
-	return string[ string.find( "{" ) : string.find( "}" ) + 1 ]
+def parse_nsmap(f):
+    events = "start", "start-ns", "end-ns"
 
-def Parse( filename ):
-	path = os.path.dirname( filename )
+    root = None
+    ns_map = []
 
-	tree = ElementTree()
-	tree.parse( filename )
+    for event, elem in xml.etree.ElementTree.iterparse(f, events):
+        if event == "start-ns":
+            ns_map.append(elem)
+            NameSpaces[elem[0]] = elem[1]
+        elif event == "end-ns":
+            ns_map.pop()
+        elif event == "start":
+            if root is None:
+                root = elem
 
-	root = tree.getroot()
-	prefix = RemoveNameSpace( root.tag )
+    return ElementTree(root)
 
-	groups = root.findall( prefix + "g" )
 
-	model = ModelCompiler.Model()
-	mesh_map = {}
+def RemoveNameSpace(string):
+    return string[string.find("{"): string.find("}") + 1]
 
-	model.MaterialLib = ModelCompiler.MaterialLib()
-	model.MaterialLib.Name = "svgmaterials"
 
-	for group in groups:
-		polygons = group.findall( prefix + "polygon" )
+def Parse(filename):
+    path = os.path.dirname(filename)
 
-		label = group.attrib[ '{' + NameSpaces[ u'inkscape' ] + '}label' ]
+    tree = ElementTree()
+    tree.parse(filename)
 
-		for polygon in polygons:
-			points = polygon.attrib[ "points" ].strip()
-			points = re.sub( ' +', ' ', points ) # replace multiple spaces with a single space
-			points = points.split( " " )
+    root = tree.getroot()
+    prefix = RemoveNameSpace(root.tag)
 
-			positions = model.Positions
-			normals = model.Normals
-			uvs = model.UVs
+    groups = root.findall(prefix + "g")
 
-			mesh = None
-			if not label in mesh_map:
-				mesh = ModelCompiler.Mesh()
-				model.Meshes += [ mesh ]
-				mesh_map[ label ] = mesh
+    model = ModelCompiler.Model()
+    mesh_map = {}
 
-				material = ModelCompiler.Material()
-				material.Name = label
+    model.MaterialLib = ModelCompiler.MaterialLib()
+    model.MaterialLib.Name = "svgmaterials"
 
-				model.MaterialLib.Materials[ label ] = material
+    for group in groups:
+        polygons = group.findall(prefix + "polygon")
 
-				textures = LayerTextureMap[ label ]
-				for texture in textures:
-					src_filename = os.path.join( path, texture )
+        label = group.attrib['{' + NameSpaces[u'inkscape'] + '}label']
 
-					temp_dir = tempfile.gettempdir()
-					prefix, ext = os.path.splitext( texture )
-					tex_filename = prefix + ".tex"
-					dest_filename = os.path.join( temp_dir, tex_filename )
+        for polygon in polygons:
+            points = polygon.attrib["points"].strip()
 
-					material.TextureFilenames[ texture ] = ( src_filename, dest_filename )
-			else:
-				mesh = mesh_map[ label ]
+            # replace multiple spaces with a single space
+            points = re.sub(' +', ' ', points)
 
-			# TODO: Map the material name from the label
-			mesh.MaterialName = label
+            points = points.split(" ")
 
-			face = ModelCompiler.Face()
+            positions = model.Positions
+            normals = model.Normals
+            uvs = model.UVs
 
-			mesh.MinIndex = len( model.Positions )
-			mesh.MaxIndex = mesh.MinIndex + len( points ) - 1
-			mesh.Faces += [ face ]
+            mesh = None
+            if not label in mesh_map:
+                mesh = ModelCompiler.Mesh()
+                model.Meshes += [mesh]
+                mesh_map[label] = mesh
 
-			mesh_min_pos = Vector3( [ sys.float_info.max, sys.float_info.max, sys.float_info.max ] )
-			mesh_max_pos = Vector3( [ -sys.float_info.max, -sys.float_info.max, -sys.float_info.max ] )
+                material = ModelCompiler.Material()
+                material.Name = label
 
-			for point in points:
-				cur_len = len( model.Positions )
-				vtx = ModelCompiler.Vertex( cur_len, cur_len, cur_len )
-				model.Vertices[ vtx ] = True
+                model.MaterialLib.Materials[label] = material
 
-				x, z = [ float( val ) for val in point.split( "," ) ] # split and convert to floats
-				p = Vector3( [ x, 0, z ] )
-				positions += [ p ]
-				normals += [ Vector3( [ 0, 1, 0 ] ) ]
+                textures = LayerTextureMap[label]
+                for texture in textures:
+                    src_filename = os.path.join(path, texture)
 
-				model.MinPosition = model.MinPosition.Min( p )
-				model.MaxPosition = model.MaxPosition.Max( p )
-				
-				mesh_min_pos = mesh_min_pos.Min( p )
-				mesh_max_pos = mesh_max_pos.Max( p )
+                    temp_dir = tempfile.gettempdir()
+                    prefix, _ = os.path.splitext(texture)
+                    tex_filename = prefix + ".tex"
+                    dest_filename = os.path.join(temp_dir, tex_filename)
 
-				face.PositionIndices += [ cur_len ]
-				face.NormalIndices += [ cur_len ]
-				face.UVIndices += [ cur_len ]
+                    material.TextureFilenames[texture] = (
+                        src_filename, dest_filename)
+            else:
+                mesh = mesh_map[label]
 
-				mesh.VertexIndices += [ cur_len ]
+            # TODO: Map the material name from the label
+            mesh.MaterialName = label
 
-			# The positions are all specified in world space, which is in meters.
-			# To generate uvs we need to take the size of the texture that should
-			# be applied to this object, convert it to meters and then use that to
-			# determine the uv of a given vertex
-			for pos in positions:
-				u, v = pos.x, pos.z
+            face = ModelCompiler.Face()
 
-				u -= mesh_min_pos.x
-				v -= mesh_min_pos.z
+            mesh.MinIndex = len(model.Positions)
+            mesh.MaxIndex = mesh.MinIndex + len(points) - 1
+            mesh.Faces += [face]
 
-				u /= Units.PixelsPerMeter
-				v /= ( mesh_max_pos.z - mesh_min_pos.z )
+            mesh_min_pos = Vector3(
+                [sys.float_info.max, sys.float_info.max, sys.float_info.max])
+            mesh_max_pos = Vector3(
+                [-sys.float_info.max, -sys.float_info.max, -sys.float_info.max])
 
-				uv = ModelCompiler.Vector2( [ u, v ] )
-				uvs += [ uv ]
-	return model
+            for point in points:
+                cur_len = len(model.Positions)
+                vtx = ModelCompiler.Vertex(cur_len, cur_len, cur_len)
+                model.Vertices[vtx] = True
 
-				
+                x, z = [float(val) for val in
+                        point.split(",")]  # split and convert to floats
+                p = Vector3([x, 0, z])
+                positions += [p]
+                normals += [Vector3([0, 1, 0])]
+
+                model.MinPosition = model.MinPosition.Min(p)
+                model.MaxPosition = model.MaxPosition.Max(p)
+
+                mesh_min_pos = mesh_min_pos.Min(p)
+                mesh_max_pos = mesh_max_pos.Max(p)
+
+                face.PositionIndices += [cur_len]
+                face.NormalIndices += [cur_len]
+                face.UVIndices += [cur_len]
+
+                mesh.VertexIndices += [cur_len]
+
+            # The positions are all specified in world space, which is in
+            # meters. To generate uvs we need to take the size of the texture
+            # that should be applied to this object, convert it to meters and
+            # then use that to determine the uv of a given vertex
+            for pos in positions:
+                u, v = pos.x, pos.z
+
+                u -= mesh_min_pos.x
+                v -= mesh_min_pos.z
+
+                u /= Units.PixelsPerMeter
+                v /= (mesh_max_pos.z - mesh_min_pos.z)
+
+                uv = ModelCompiler.Vector2([u, v])
+                uvs += [uv]
+    return model
+
+
+def main():
+    src_filename = sys.argv[1]
+    dest_filename = sys.argv[2]
+
+    parse_nsmap(open(src_filename, "rt"))
+
+    model = Parse(src_filename)
+    model.Compile(dest_filename)
+
+
 if __name__ == "__main__":
-	src_filename = sys.argv[1]
-	dest_filename = sys.argv[2]
-
-	parse_nsmap( open( src_filename, "rt" ) )
-
-	model = Parse( src_filename )
-	model.Compile( dest_filename )
+    main()
