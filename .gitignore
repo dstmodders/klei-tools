@@ -11,3 +11,4 @@ cmake-build-*/
 
 ### Project ###
 build/**
+!build/.gitignore
