@@ -1,5 +1,7 @@
 # ds-mod-tools
 
+[![Debian Size](https://img.shields.io/docker/image-size/viktorpopkov/ds-mod-tools/debian?label=debian%20size)](https://hub.docker.com/r/viktorpopkov/ds-mod-tools)
+
 > As I do sometimes develop mods for this game, I'm still dependent on this
 > project. However, the development speed is kinda slow, so I've decided to make
 > a proper fork and introduce some changes to speed things up.
