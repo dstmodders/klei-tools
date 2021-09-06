@@ -2,7 +2,7 @@
 
 > As I do sometimes develop mods for this game, I'm still dependent on this
 > project. However, the development speed is kinda slow, so I've decided to make
-> a proper fork and introduce some changes to "modernize" it a little bit.
+> a proper fork and introduce some changes to speed things up.
 
 This is a fork from the source code for the "Don't Starve Mod Tools" which is
 available through Steam.
