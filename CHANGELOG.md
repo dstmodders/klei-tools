@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Improve code consistency
 
+### Fixed
+
+- Fix premake directory tree copying on Unix
+
 ## 1.0.0 - 2020-08-28
 
 First release.
