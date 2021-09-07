@@ -1,6 +1,8 @@
 # ds-mod-tools
 
 [![Debian Size](https://img.shields.io/docker/image-size/viktorpopkov/ds-mod-tools/debian?label=debian%20size)](https://hub.docker.com/r/viktorpopkov/ds-mod-tools)
+[![CI](https://img.shields.io/github/workflow/status/victorpopkov/ds-mod-tools/CI?label=CI)](https://github.com/victorpopkov/ds-mod-tools/actions/workflows/ci.yml)
+[![Linux](https://img.shields.io/github/workflow/status/victorpopkov/ds-mod-tools/Linux?label=Linux)](https://github.com/victorpopkov/ds-mod-tools/actions/workflows/linux.yml)
 
 > As I do sometimes develop mods for this game, I'm still dependent on this
 > project. However, the development speed is kinda slow, so I've decided to make
