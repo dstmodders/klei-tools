@@ -10,5 +10,5 @@ cmake-build-*/
 *.py[cod]
 
 ### Project ###
-build/**
-!build/.gitignore
+build/*
+!build/.gitinclude
