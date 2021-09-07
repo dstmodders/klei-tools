@@ -16,16 +16,14 @@ jobs:
         run: |
           echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
           echo "GITHUB_JOB_NAME=lint" >> $GITHUB_ENV
+      - name: Set up Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
       - name: Set up Python 2.7
         uses: actions/setup-python@v2
         with:
           python-version: 2.7
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - name: Install Prettier
-        run: yarn global add prettier
       - name: Install dependencies
         run: |
           pip install --upgrade pip
