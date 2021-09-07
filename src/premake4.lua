@@ -45,7 +45,7 @@ local function deduceOS()
     if DIR_SEP == "\\" then
         return "windows"
     elseif DIR_SEP == "/" then
-        -- Unix.
+        -- unix
         local kernel_name = (function()
             local uname = io.popen("uname", "r")
             if uname then
@@ -54,6 +54,7 @@ local function deduceOS()
                 return kern:lower()
             end
         end)()
+
         if kernel_name == "linux" then
             return "linux"
         elseif kernel_name == "darwin" then
@@ -66,6 +67,7 @@ if _OPTIONS.os == nil then
     io.write("Target OS not specified. Assuming it's the host OS.", "\n")
     _OPTIONS.os = deduceOS()
 end
+
 if _OPTIONS.os == nil then
     error('Please specify your target os!')
 elseif os_properties[_OPTIONS.os] == nil then
@@ -89,8 +91,8 @@ local function runcmd(cmd)
 end
 
 --[[
--- To be used as: definesMacros { "foo", bar = "qux" },
--- i.e. array entries are simple defines, hash ones define values.
+-- To be used as: definesMacros { "foo", bar = "qux" }, i.e. array entries are
+-- simple defines, hash ones define values.
 --
 -- See http://sourceforge.net/p/premake/bugs/275/ for why it's needed.
 --]]
@@ -160,6 +162,7 @@ local mkdir = (function()
     -- Command formatting string.
     --]]
     local cmd_template
+
     if hostIsUnix() then
         cmd_template = 'mkdir -p %q'
     else
@@ -184,10 +187,10 @@ local cmdExists = (function()
         return function(name)
             return runcmd(('which %q &>/dev/null'):format(name))
         end
-    else
-        return function(name)
-            return runcmd(('where "%s" > nul 2> nul'):format(name))
-        end
+    end
+
+    return function(name)
+        return runcmd(('where "%s" > nul 2> nul'):format(name))
     end
 end)()
 
@@ -242,9 +245,9 @@ local extract = (function()
             mkdir(folder)
             return runcmd(cmd_template:format(file, folder))
         end
-    else
-        return error("Unable to determine an extraction method.")
     end
+
+    return error("Unable to determine an extraction method.")
 end)()
 
 local copyDirTree = (function()
@@ -259,6 +262,7 @@ local copyDirTree = (function()
     else
         cmd_template = 'xcopy /e /y "%s" "%s"'
     end
+
     return function(src, dest)
         mkdir(dest)
         return runcmd(cmd_template:format(src, dest))
@@ -290,47 +294,47 @@ libs = {
 }
 
 solution('mod_tools')
-configurations { "debug", "release" }
-location(catfile(props.outdir, "proj"))
-flags { "Symbols", "NoRTTI", "NoEditAndContinue", "NoExceptions", "NoPCH" }
-includedirs { "lib", catfile("..", "lib") }
-targetdir(props.skuoutdir)
+    configurations { "debug", "release" }
+    location(catfile(props.outdir, "proj"))
+    flags { "Symbols", "NoRTTI", "NoEditAndContinue", "NoExceptions", "NoPCH" }
+    includedirs { "lib", catfile("..", "lib") }
+    targetdir(props.skuoutdir)
 
-definesMacros { PYTHONDIR = props.pythondir }
+    definesMacros { PYTHONDIR = props.pythondir }
 
-configuration { "debug" }
-definesMacros { "DEBUG", "_CRT_SECURE_NO_WARNINGS" }
-configuration { "release" }
-definesMacros { "RELEASE", "_CRT_SECURE_NO_WARNINGS" }
-flags { "Optimize" }
+    configuration { "debug" }
+    definesMacros { "DEBUG", "_CRT_SECURE_NO_WARNINGS" }
+    configuration { "release" }
+    definesMacros { "RELEASE", "_CRT_SECURE_NO_WARNINGS" }
+    flags { "Optimize" }
 
-for _, app in pairs(apps) do
-    project(app)
-    kind "ConsoleApp"
-    language "C++"
-    files {
-        "app/" .. app .. "/**.h",
-        "app/" .. app .. "/**.hpp",
-        "app/" .. app .. "/**.cpp",
-    }
-    for lib, _ in pairs(libs) do
-        links { lib }
+    for _, app in pairs(apps) do
+        project(app)
+        kind "ConsoleApp"
+        language "C++"
+        files {
+            "app/" .. app .. "/**.h",
+            "app/" .. app .. "/**.hpp",
+            "app/" .. app .. "/**.cpp",
+        }
+        for lib, _ in pairs(libs) do
+            links { lib }
+        end
     end
-end
 
-for lib, settings in pairs(libs) do
-    project(lib)
-    kind "StaticLib"
-    language "C++"
-    files {
-        "lib/" .. lib .. "/**.h",
-        "lib/" .. lib .. "/**.hpp",
-        "lib/" .. lib .. "/**.cpp",
-    }
-    if settings.include_lib then
-        includedirs { "lib/" .. lib }
+    for lib, settings in pairs(libs) do
+        project(lib)
+        kind "StaticLib"
+        language "C++"
+        files {
+            "lib/" .. lib .. "/**.h",
+            "lib/" .. lib .. "/**.hpp",
+            "lib/" .. lib .. "/**.cpp",
+        }
+        if settings.include_lib then
+            includedirs { "lib/" .. lib }
+        end
     end
-end
 
 extract(
     catfile("..", "pkg", "tst", "wand.zip"),
