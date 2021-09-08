@@ -26,7 +26,7 @@ jobs:
       - name: Build
         working-directory: ./build/proj/
         shell: powershell
-        run: msbuild mod_tools.sln /p:PlatformToolset=v160
+        run: msbuild mod_tools.sln /p:PlatformToolset=v142
       - name: Display build directory tree
         shell: powershell
         working-directory: ./build/
