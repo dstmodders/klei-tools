@@ -27,11 +27,11 @@ jobs:
           brew install \
             imagemagick@6 \
             premake
-          export PKG_CONFIG_PATH="/usr/local/opt/imagemagick@6/lib/pkgconfig"
           python2.7 -m pip install --upgrade pip
           python2.7 -m pip install pillow
       - name: Install ktools
         run: |
+          export PKG_CONFIG_PATH="/usr/local/opt/imagemagick@6/lib/pkgconfig"
           wget https://github.com/victorpopkov/ktools/archive/refs/tags/v4.4.1.tar.gz
           tar xf v4.4.1.tar.gz
           cd ./ktools-4.4.1/
