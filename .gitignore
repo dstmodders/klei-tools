@@ -7,7 +7,7 @@ cmake-build-*/
 *.sublime-workspace
 
 ### Python ###
-*.py[cod]
+*.py[co]
 
 ### Project ###
 build/*
