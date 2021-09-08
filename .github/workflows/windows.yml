@@ -26,11 +26,11 @@ jobs:
       - name: Build
         working-directory: ./build/proj/
         shell: powershell
-        run: msbuild mod_tools.sln /p:PlatformToolset=v142
+        run: msbuild mod_tools.sln /p:Configuration=release /p:PlatformToolset=v142
       - name: Display build directory tree
         shell: powershell
         working-directory: ./build/
-        run: tree
+        run: tree /f /a
       - name: Run autocompiler
         working-directory: ./build/win32/mod_tools/
         shell: powershell

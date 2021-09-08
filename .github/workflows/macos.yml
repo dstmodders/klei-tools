@@ -49,7 +49,7 @@ jobs:
       - name: Run premake
         working-directory: ./src/
         run: ./premake.sh
-      - name: Run make
+      - name: Build
         working-directory: ./build/proj/
         run: make config=release
       - name: Display build directory tree
