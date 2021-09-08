@@ -17,16 +17,23 @@ jobs:
         run: |
           echo ("BRANCH_NAME=" + $env:GITHUB_REF.replace('refs/heads/', '')) >> $env:GITHUB_ENV
           echo "GITHUB_JOB_NAME=build" >> $env:GITHUB_ENV
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.3
       - name: Run premake
         working-directory: ./src/
         shell: powershell
         run: ./premake.bat
+      - name: Build
+        working-directory: ./build/proj/
+        shell: powershell
+        run: msbuild mod_tools.sln
       - name: Display build directory tree
         shell: powershell
-        run: tree ./build/
+        working-directory: ./build/
+        run: tree
       - name: Run autocompiler
-        shell: powershell
         working-directory: ./build/win32/mod_tools/
+        shell: powershell
         run: ./autocompiler.exe
       - name: Upload mods output
         uses: actions/upload-artifact@v2
