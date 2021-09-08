@@ -27,6 +27,7 @@ jobs:
           brew install \
             imagemagick@6 \
             premake
+          export PKG_CONFIG_PATH="/usr/local/opt/imagemagick/lib/pkgconfig"
           python2.7 -m pip install --upgrade pip
           python2.7 -m pip install pillow
       - name: Install ktools
@@ -58,7 +59,7 @@ jobs:
       - name: Upload mods output
         uses: actions/upload-artifact@v2
         with:
-          name: osx-test-mods
+          name: macos-test-mods
           path: build/dont_starve/mods/
       - name: Prepare success Slack notification
         if: success()
