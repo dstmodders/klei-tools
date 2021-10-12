@@ -39,7 +39,7 @@ jobs:
           python2.7 -m pip install pillow
       - name: Install ktools
         run: |
-          wget https://github.com/victorpopkov/ktools/archive/refs/tags/v4.4.1.tar.gz
+          wget https://github.com/dstmodders/ktools/archive/refs/tags/v4.4.1.tar.gz
           tar xf v4.4.1.tar.gz
           cd ./ktools-4.4.1/
           cmake \
