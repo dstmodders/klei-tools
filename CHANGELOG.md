@@ -19,4 +19,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 First release.
 
-[unreleased]: https://github.com/victorpopkov/ds-mod-tools/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/dstmodders/klei-tools/compare/v1.0.0...HEAD

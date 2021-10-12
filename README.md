@@ -1,10 +1,10 @@
-# ds-mod-tools
+# klei-tools
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/viktorpopkov/ds-mod-tools)](https://hub.docker.com/r/viktorpopkov/ds-mod-tools)
-[![CI](https://img.shields.io/github/workflow/status/victorpopkov/ds-mod-tools/CI?label=ci)](https://github.com/victorpopkov/ds-mod-tools/actions/workflows/ci.yml)
-[![Linux](https://img.shields.io/github/workflow/status/victorpopkov/ds-mod-tools/Linux?label=linux)](https://github.com/victorpopkov/ds-mod-tools/actions/workflows/linux.yml)
-[![macOS](https://img.shields.io/github/workflow/status/victorpopkov/ds-mod-tools/Linux?label=macos)](https://github.com/victorpopkov/ds-mod-tools/actions/workflows/macos.yml)
-[![Windows](https://img.shields.io/github/workflow/status/victorpopkov/ds-mod-tools/Linux?label=windows)](https://github.com/victorpopkov/ds-mod-tools/actions/workflows/windows.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/dstmodders/klei-tools)](https://hub.docker.com/r/dstmodders/klei-tools)
+[![CI](https://img.shields.io/github/workflow/status/dstmodders/klei-tools/CI?label=ci)](https://github.com/dstmodders/klei-tools/actions/workflows/ci.yml)
+[![Linux](https://img.shields.io/github/workflow/status/dstmodders/klei-tools/Linux?label=linux)](https://github.com/dstmodders/klei-tools/actions/workflows/linux.yml)
+[![macOS](https://img.shields.io/github/workflow/status/dstmodders/klei-tools/Linux?label=macos)](https://github.com/dstmodders/klei-tools/actions/workflows/macos.yml)
+[![Windows](https://img.shields.io/github/workflow/status/dstmodders/klei-tools/Linux?label=windows)](https://github.com/dstmodders/klei-tools/actions/workflows/windows.yml)
 
 > As I do sometimes develop mods for this game, I'm still dependent on this
 > project. However, the development speed is kinda slow, so I've decided to make
