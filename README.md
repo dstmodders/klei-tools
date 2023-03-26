@@ -21,12 +21,12 @@ improves the original animation compiler (i.e., SCML):
   proper correlation of animation frame elements to build symbol frames)
 
 The Linux and macOS porting, as well as the improvements mentioned above, were
-done by [@nsimplex][]. @DeathDisciple was responsible for getting the tools
+done by [@nsimplex]. @DeathDisciple was responsible for getting the tools
 compiling once again under Windows, after the Unix port.
 
 ## Compilation-time dependencies
 
-This project uses [Premake][] to generate the build files, so it must be
+This project uses [Premake] to generate the build files, so it must be
 installed.
 
 Additionally, a C++ compiler is required. For Windows, either Visual Studio or
@@ -39,10 +39,10 @@ required (you probably already have them).
 Under Windows, the tools have no runtime dependencies other than those bundled
 within the tools.
 
-For macOS and Linux, a system-wide installation of Python 2.7 is assumed, as well
-as the Python Imaging Library (PIL) or its backwards-compatible fork
-([Pillow][]). A system wide installation of the TEX converter `ktech` in
-[ktools][] is also assumed.
+For macOS and Linux, a system-wide installation of Python 2.7 is assumed, as
+well as the Python Imaging Library (PIL) or its backwards-compatible fork
+([Pillow]). A system-wide installation of the TEX converter `ktech` in [ktools]
+is also assumed.
 
 ## Compilation instructions
 
@@ -82,9 +82,9 @@ folder placed at `build/win32/mod_tools` after compilation must be relocated in
 such a way that `mod_tools/../../dont_starve` is Don't Starve's installation
 directory).
 
-Alternatively, the `scml` compiler may be used directly. I takes two arguments:
-the first one is the path to SCML file to build, and the second one is the
-path to the directory of the mod in which to place the final product (an `anim/`
+Alternatively, the `scml` compiler may be used directly. It takes two arguments:
+the first one is the path to SCML file to build, and the second one is the path
+to the directory of the mod in which to place the final product (an `anim/`
 directory is created within the mod's if it doesn't exist).
 
 [@nsimplex]: https://github.com/nsimplex/
