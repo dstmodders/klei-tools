@@ -1,10 +1,10 @@
 # klei-tools
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/dstmodders/klei-tools)](https://hub.docker.com/r/dstmodders/klei-tools)
-[![CI](https://img.shields.io/github/workflow/status/dstmodders/klei-tools/CI?label=ci)](https://github.com/dstmodders/klei-tools/actions/workflows/ci.yml)
-[![Linux](https://img.shields.io/github/workflow/status/dstmodders/klei-tools/Linux?label=linux)](https://github.com/dstmodders/klei-tools/actions/workflows/linux.yml)
-[![macOS](https://img.shields.io/github/workflow/status/dstmodders/klei-tools/Linux?label=macos)](https://github.com/dstmodders/klei-tools/actions/workflows/macos.yml)
-[![Windows](https://img.shields.io/github/workflow/status/dstmodders/klei-tools/Linux?label=windows)](https://github.com/dstmodders/klei-tools/actions/workflows/windows.yml)
+[![Docker Pulls]](https://hub.docker.com/r/dstmodders/klei-tools)
+[![CI]](https://github.com/dstmodders/klei-tools/actions/workflows/ci.yml)
+[![Linux]](https://github.com/dstmodders/klei-tools/actions/workflows/linux.yml)
+[![macOS]](https://github.com/dstmodders/klei-tools/actions/workflows/macos.yml)
+[![Windows]](https://github.com/dstmodders/klei-tools/actions/workflows/windows.yml)
 
 > As I do sometimes develop mods for this game, I'm still dependent on this
 > project. However, the development speed is kinda slow, so I've decided to make
@@ -88,6 +88,11 @@ path to the directory of the mod in which to place the final product (an `anim/`
 directory is created within the mod's if it doesn't exist).
 
 [@nsimplex]: https://github.com/nsimplex/
+[ci]: https://img.shields.io/github/actions/workflow/status/dstmodders/klei-tools/ci.yml?branch=main&label=ci
+[docker pulls]: https://img.shields.io/docker/pulls/dstmodders/klei-tools
 [ktools]: https://github.com/nsimplex/ktools#installation-from-source
+[linux]: https://img.shields.io/github/actions/workflow/status/dstmodders/klei-tools/linux.yml?branch=main&label=linux
+[macos]: https://img.shields.io/github/actions/workflow/status/dstmodders/klei-tools/macos.yml?branch=main&label=macos
 [pillow]: https://pillow.readthedocs.io/en/stable/
 [premake]: https://premake.github.io/
+[windows]: https://img.shields.io/github/actions/workflow/status/dstmodders/klei-tools/windows.yml?branch=main&label=windows
