@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set a job-wide environment variables
         shell: powershell
         run: |
@@ -20,7 +20,7 @@ jobs:
           echo "SLACK_COLOR_FAILURE=#cc1f2d" >> $env:GITHUB_ENV
           echo "SLACK_COLOR_SUCCESS=#24a943" >> $env:GITHUB_ENV
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.0.3
+        uses: microsoft/setup-msbuild@v1.1
       - name: Run premake
         working-directory: ./src/
         shell: powershell
@@ -38,7 +38,7 @@ jobs:
         shell: powershell
         run: ./autocompiler.exe
       - name: Upload mods output
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-test-mods
           path: build/dont_starve/mods/

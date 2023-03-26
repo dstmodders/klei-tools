@@ -11,7 +11,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set a job-wide environment variables
         run: |
           echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
@@ -21,7 +21,7 @@ jobs:
       - name: Set ownership to current user
         run: sudo chown -R "$(id -u):$(id -g)" .
       - name: Set up Python 2.7
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 2.7
       - name: Install dependencies
@@ -60,7 +60,7 @@ jobs:
         working-directory: ./build/osx/mod_tools/
         run: ./autocompiler
       - name: Upload mods output
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: macos-test-mods
           path: build/dont_starve/mods/
